@@ -231,7 +231,16 @@ const MemberCard = styled(motion.div)`
 
 const MemberPhoto = styled.div`
   height: 250px;
-  background: ${props => props.image ? `url(${props.image}) center center / cover no-repeat` : 'linear-gradient(135deg, rgba(74, 144, 226, 0.6) 0%, rgba(255, 215, 0, 0.5) 50%, rgba(255, 107, 53, 0.6) 100%)'};
+  background: ${props => {
+    if (!props.image) {
+      return 'linear-gradient(135deg, rgba(74, 144, 226, 0.6) 0%, rgba(255, 215, 0, 0.5) 50%, rgba(255, 107, 53, 0.6) 100%)';
+    }
+    // Special positioning for Prithwineel's image to show full face
+    if (props.image.includes('prithwineel')) {
+      return `url(${props.image}) center 35% / cover no-repeat`;
+    }
+    return `url(${props.image}) center top / cover no-repeat`;
+  }};
   position: relative;
   display: flex;
   align-items: center;
@@ -241,6 +250,16 @@ const MemberPhoto = styled.div`
   font-weight: bold;
   text-shadow: 0 2px 15px rgba(0, 0, 0, 0.8);
   overflow: hidden;
+  
+  /* Ensure better image positioning for faces */
+  background-position: ${props => {
+    if (!props.image) return 'center center';
+    // Special positioning for Prithwineel's image to show full face
+    if (props.image.includes('prithwineel')) {
+      return 'center 35%';
+    }
+    return 'center 20%';
+  }};
   
   &::before {
     content: '';
