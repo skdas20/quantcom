@@ -278,11 +278,33 @@ const Footer = () => {
             </div>
           </ContactInfo>
         </FooterSection>
-      </FooterContent>
-
-      <FooterBottom>
+      </FooterContent>      <FooterBottom>
         <div className="container">
           <p>&copy; {currentYear} IEM Centre of Excellence for Quantum Computing. All rights reserved.</p>
+          <p style={{ marginTop: '0.5rem', fontSize: '0.9rem' }}>
+            Site developed by{' '}
+            <a 
+              href="https://www.linkedin.com/in/sumitkumardas-ai/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ 
+                color: '#FFD700', 
+                textDecoration: 'none',
+                borderBottom: '1px solid transparent',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseOver={(e) => {
+                e.target.style.borderBottomColor = '#FFD700';
+                e.target.style.textShadow = '0 0 8px rgba(255, 215, 0, 0.5)';
+              }}
+              onMouseOut={(e) => {
+                e.target.style.borderBottomColor = 'transparent';
+                e.target.style.textShadow = 'none';
+              }}
+            >
+              Sumit Kumar Das
+            </a>
+          </p>
         </div>
       </FooterBottom>
     </FooterContainer>

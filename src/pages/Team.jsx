@@ -365,48 +365,13 @@ const Team = () => {
     },
   };  const teamMembers = [
     {
-      name: 'Dr. Saikat Basu',
-      title: 'Quantum Computing Research Lead',      affiliation: 'LTIMindtree',
-      experience: '15+ Years',
-      expertise: 'Quantum Computing Research, Industry Applications, Technology Innovation',
-      image: '/assets/saikat.jpeg',
-      email: 'saikat.basu@ltimindtree.com'
-    },
-    {
-      name: 'Dr. Ritajit Majumdar',
-      title: 'Research Scientist',
-      affiliation: 'IBM',
-      experience: '12+ Years',
-      expertise: 'Quantum Computing, IBM Quantum Technologies, Research & Development',
-      image: '/assets/ritajit.jpeg',
-      email: 'ritajit.majumdar@ibm.com'
-    },
-    {
-      name: 'Dr. Mrityunjay Ghosh',
-      title: 'Quantum Computing Principal',
-      affiliation: 'HCL Technologies',
-      experience: '14+ Years',
-      expertise: 'Quantum Computing, Enterprise Solutions, Technology Leadership',
-      image: '/assets/mrityunjay.jpeg',
-      email: 'mrityunjay.ghosh@hcl.com'
-    },
-    {
-      name: 'Dr. Srinivasa Prasannaa V',
-      title: 'Senior Researcher',
-      affiliation: 'CQUERE, TCG CREST',
-      experience: '10+ Years',
-      expertise: 'Quantum Computing Research, Quantum Algorithms, Academic Research',
-      image: '/assets/srinivasan.jpg',
-      email: 'srinivasa.prasannaa@tcgcrest.org'
-    },
-    {
-      name: 'Dr. Sanjay Chakraborty',
-      title: 'Associate Professor',
-      affiliation: 'Linköping University, Sweden',
-      experience: '16+ Years',
-      expertise: 'Quantum Computing, Academic Research, International Collaboration',
-      image: '/assets/sanjay.jpeg',
-      email: 'sanjay.chakraborty@liu.se'
+      name: 'Prof. Dr. Moutushi Singh',
+      title: 'Head of Department & Convenor',
+      affiliation: 'Department of Computer Science & Engineering, IEM',
+      experience: '20+ Years',
+      expertise: 'Computer Science, Academic Leadership, Research Administration, Quantum Computing Education',
+      image: '/assets/moutushi.jpg',
+      email: 'moutushi.singh@iem.edu.in'
     },
     {
       name: 'Dr. Prithwineel Paul',
@@ -414,11 +379,11 @@ const Team = () => {
       affiliation: 'Institute of Engineering & Management, Kolkata',
       experience: '12+ Years',
       expertise: 'Quantum Computing Research, Center Leadership, Academic Administration',
-      image: '/assets/prithwineel.png',
+      image: '/assets/prithwineel.jpg',
       email: 'prithwineel.paul@iem.edu.in'
     }
   ];  const tabs = [
-    { key: 'all', label: 'All Team Members', count: teamMembers.length }
+    { key: 'all', label: 'Core Team', count: teamMembers.length }
   ];
 
   const getCurrentTeam = () => {
@@ -429,7 +394,7 @@ const Team = () => {
     <TeamContainer>
       <Helmet>
         <title>Our Team - QuantCom | IEM Centre of Excellence for Quantum Computing</title>
-        <meta name="description" content="Meet our distinguished team of quantum computing experts, researchers, and advisors with over 105 years of collective experience" />
+        <meta name="description" content="Meet our distinguished team of quantum computing experts and academic leaders at the IEM Centre of Excellence" />
       </Helmet>
 
       <HeroSection>
@@ -441,14 +406,12 @@ const Team = () => {
             transition={{ duration: 0.8 }}
           >
             Our Team
-          </HeroTitle>
-          <HeroSubtitle
+          </HeroTitle>          <HeroSubtitle
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Distinguished experts and researchers driving quantum computing innovation 
-            with unparalleled expertise and vision
+            Leading faculty and researchers at the IEM Centre of Excellence for Quantum Computing
           </HeroSubtitle>
         </Container>
       </HeroSection>

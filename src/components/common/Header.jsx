@@ -141,17 +141,24 @@ const MobileMenuButton = styled.button`
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: ${props => props.isHomePage ? theme.colors.text : 'rgba(255, 255, 255, 0.9)'};
+  color: #FF6B35;
   cursor: pointer;
   margin-left: auto;
   transition: all ${theme.transitions.fast};
+  padding: 0.5rem;
   
   &:hover {
-    color: ${props => props.isHomePage ? theme.colors.secondary : '#FFD700'};
+    color: #FF8A5B;
+    transform: scale(1.1);
   }
   
   @media (max-width: ${theme.breakpoints.tablet}) {
     display: block;
+  }
+  
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    font-size: 1.25rem;
+    padding: 0.375rem;
   }
 `;
 
@@ -168,32 +175,77 @@ const MobileMenu = styled(motion.div)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
+  padding: 2rem;
+  overflow-y: auto;
+  
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    gap: 1rem;
+    padding: 1rem;
+    padding-top: 4rem; /* Space for close button */
+  }
 `;
 
 const MobileNavLink = styled(Link)`
   color: ${theme.colors.text};
-  font-size: ${theme.sizes['2xl']};
+  font-size: ${theme.sizes.xl};
   font-weight: ${theme.fonts.weights.medium};
   padding: 1rem 2rem;
   border-radius: ${theme.borderRadius.lg};
   transition: all ${theme.transitions.fast};
+  text-align: center;
+  min-width: 200px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  max-width: 300px;
   
   &:hover, &.active {
     color: ${theme.colors.primary};
     background: rgba(74, 144, 226, 0.1);
+    transform: scale(1.05);
+  }
+  
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    font-size: ${theme.sizes.lg};
+    padding: 0.75rem 1.5rem;
+    min-width: 180px;
+    max-width: 250px;
+  }
+  
+  @media (max-width: 320px) {
+    font-size: ${theme.sizes.base};
+    padding: 0.5rem 1rem;
+    min-width: 150px;
   }
 `;
 
 const CloseButton = styled.button`
   position: absolute;
-  top: 2rem;
-  right: 2rem;
-  background: none;
-  border: none;
-  font-size: 2rem;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(74, 144, 226, 0.1);
+  border: 1px solid rgba(74, 144, 226, 0.2);
+  font-size: 1.5rem;
   color: ${theme.colors.text};
   cursor: pointer;
+  padding: 0.5rem;
+  border-radius: ${theme.borderRadius.base};
+  transition: all ${theme.transitions.fast};
+  z-index: 1000;
+  
+  &:hover {
+    background: rgba(74, 144, 226, 0.2);
+    color: ${theme.colors.primary};
+    transform: scale(1.1);
+  }
+  
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.25rem;
+    padding: 0.375rem;
+  }
 `;
 
 const Header = () => {
@@ -219,10 +271,22 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <>      <HeaderContainer
@@ -270,31 +334,35 @@ const Header = () => {
               </li>
             ))}
           </NavLinks>          <MobileMenuButton 
-            onClick={() => setIsMobileMenuOpen(true)}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             isHomePage={location.pathname === '/'}
           >
-            <FiMenu />
+            {isMobileMenuOpen ? <FiX /> : <FiMenu />}
           </MobileMenuButton>
         </Nav>
-      </HeaderContainer>
-
-      <AnimatePresence>
+      </HeaderContainer>      <AnimatePresence>
         {isMobileMenuOpen && (
           <MobileMenu
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            onClick={(e) => {
+              // Close menu if clicking on backdrop (not on nav items)
+              if (e.target === e.currentTarget) {
+                setIsMobileMenuOpen(false);
+              }
+            }}
           >
             <CloseButton onClick={() => setIsMobileMenuOpen(false)}>
               <FiX />
             </CloseButton>
-            
-            {navItems.map((item) => (
+            {navItems.map((item, index) => (
               <MobileNavLink
                 key={item.path}
                 to={item.path}
                 className={location.pathname === item.path ? 'active' : ''}
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 {item.label}
               </MobileNavLink>
