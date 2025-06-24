@@ -1,0 +1,21 @@
+{
+  "short_name": "QuantCom",
+  "name": "IEM Centre of Excellence for Quantum Computing",
+  "icons": [
+    {
+      "src": "assets/Logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/Logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#4A90E2",
+  "background_color": "#ffffff",
+  "description": "Leading research and innovation in quantum computing technologies"
+}
